@@ -1,8 +1,0 @@
-1. git init и еще это git remote add https://github.com/siriusdevs/rpm-hws_7-2_2023
-
-2. git checkout -b uvarova
-3. git add . (Если определенные файлы то написать путь до файлов)
-4. git commit -m "Текст комита"
-5. git push 
-
-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
