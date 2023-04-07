@@ -29,7 +29,7 @@ def get_data(query: dict, table: str) -> dict:
 
 
 def query_request(request: str, query: dict):
-    if query != {}:
+    if query:
         parts = []
         for key, value in query.items():
             if isinstance(value, int):
@@ -48,22 +48,22 @@ def get_place(query: dict) -> str:
         "karaganda": URL.format("73.08149641,49.81310069", "11")
     }
 
-    def get_image(url):
+    def g_image(url):
         response = get(url, timeout=(5, 5))
         if response.status_code != OK:
             return BAD_REQUEST
         else:
             return url
 
-    if query != {}:
+    if query:
         if query['places'] == 'arena':
-            return get_image(places['arena'])
+            return g_image(places['arena'])
         elif query['places'] == 'sigma':
-            return get_image(places['sigma'])
+            return g_image(places['sigma'])
         elif query['places'] == 'lyceum':
-            return get_image(places['lyceum'])
+            return g_image(places['lyceum'])
     else:
-        return get_image(places['karaganda'])
+        return g_image(places['karaganda'])
 
 
 def change_db(request: str):
@@ -266,6 +266,6 @@ if __name__ == '__main__':
     db_cursor = db_connection.cursor()
     with ThreadingHTTPServer((HOST, PORT), CustomHandler) as server:
         server.serve_forever()
-    # server.server_close()
+
     db_cursor.close()
     db_connection.close()
