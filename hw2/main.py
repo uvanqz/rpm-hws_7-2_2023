@@ -7,6 +7,7 @@ from json import loads
 from views import events, main_page, list_to_paragraphs, places
 from requests import get
 
+
 load_dotenv()
 
 PG_DBNAME = getenv('PG_DBNAME')
@@ -29,7 +30,7 @@ def get_data(query: dict, table: str) -> dict:
 
 
 def query_request(request: str, query: dict):
-    if query:
+    if query != {}:
         parts = []
         for key, value in query.items():
             if isinstance(value, int):
@@ -48,12 +49,12 @@ def get_place(query: dict) -> str:
         "karaganda": URL.format("73.08149641,49.81310069", "11")
     }
 
-
-def get_image(url):
-    response = get(url, timeout=(5, 5))
-    if response.status_code != OK:
-        return BAD_REQUEST
-    return url
+    def get_image(url):
+        response = get(url, timeout=(5.5))
+        if response.status_code != 200:
+            return BAD_REQUEST
+        else:
+            return url
 
     if query:
         if query['places'] == 'arena':
@@ -85,7 +86,8 @@ def get_id(table: str, query: dict):
     except Exception as error:
         print(f'db get_id error: {error}')
         return 0
-    return db_cursor.fetchone()[0]
+    else:
+        return db_cursor.fetchone()[0]
 
 
 def is_int(value: any):
