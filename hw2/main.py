@@ -49,8 +49,8 @@ def get_place(query: dict) -> str:
     }
 
     def get_image(url):
-        response = get(url, timeout=(5.5))
-        if response.status_code != 200:
+        response = get(url, timeout=(5, 5))
+        if response.status_code != OK:
             return BAD_REQUEST
         else:
             return url
