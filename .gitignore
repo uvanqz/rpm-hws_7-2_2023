@@ -1,2 +1,5 @@
 *branches.sh
 *students*
+.env
+*.gitignore*
+.gitignore
