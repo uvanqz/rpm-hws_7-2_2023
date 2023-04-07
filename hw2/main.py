@@ -7,7 +7,6 @@ from json import loads
 from views import events, main_page, list_to_paragraphs, places
 from requests import get
 
-
 load_dotenv()
 
 PG_DBNAME = getenv('PG_DBNAME')
@@ -26,11 +25,11 @@ def get_data(query: dict, table: str) -> dict:
     return {
         'number': len(events),
         'rendered_events': list_to_paragraphs(events)
-        }
+    }
 
 
 def query_request(request: str, query: dict):
-    if query != {}:
+    if query:
         parts = []
         for key, value in query.items():
             if isinstance(value, int):
@@ -49,12 +48,12 @@ def get_place(query: dict) -> str:
         "karaganda": URL.format("73.08149641,49.81310069", "11")
     }
 
-    def get_image(url):
-        response = get(url, timeout=(5.5))
-        if response.status_code != 200:
-            return BAD_REQUEST
-        else:
-            return url
+
+def get_image(url):
+    response = get(url, timeout=(5, 5))
+    if response.status_code != OK:
+        return BAD_REQUEST
+    return url
 
     if query:
         if query['places'] == 'arena':
@@ -86,8 +85,7 @@ def get_id(table: str, query: dict):
     except Exception as error:
         print(f'db get_id error: {error}')
         return 0
-    else:
-        return db_cursor.fetchone()[0]
+    return db_cursor.fetchone()[0]
 
 
 def is_int(value: any):
@@ -118,7 +116,7 @@ def is_valid_token(username: str, token: str) -> bool:
     if answer:
         return token == answer[0]
     return False
-        
+
 
 class CustomHandler(BaseHTTPRequestHandler):
 
@@ -164,7 +162,6 @@ class CustomHandler(BaseHTTPRequestHandler):
                 return OK, places(get_place(query))
         return OK, main_page()
 
-
     def do_GET(self):
         code, page = self.get_template()
         self.respond(code, page)
@@ -185,7 +182,6 @@ class CustomHandler(BaseHTTPRequestHandler):
                     print(f'{__name__} error: {msg}')
                     raise Exception(msg)
             return body
-
 
     def make_changes(self):
         if self.path.startswith(EVENTS):
@@ -230,16 +226,14 @@ class CustomHandler(BaseHTTPRequestHandler):
                 code = NOT_IMPLEMENTED
                 msg = 'Not implemented by server, available requests are GET, PUT, DELETE'
             return code, f'{self.command} {msg}'
-        
+
         return NOT_FOUND, 'Content was NOT FOUND'
-        
 
     def respond(self, code: int, msg: str):
         self.send_response(code)
         self.send_header(HEADER_TYPE, 'text')
         self.end_headers()
         self.wfile.write(msg.encode(ENCODING))
-
 
     def check_auth(self):
         auth = self.headers.get('Authorization', '').split()
