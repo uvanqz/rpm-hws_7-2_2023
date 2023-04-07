@@ -7,7 +7,6 @@ from json import loads
 from views import events, main_page, list_to_paragraphs, places
 from requests import get
 
-
 load_dotenv()
 
 PG_DBNAME = getenv('PG_DBNAME')
@@ -56,7 +55,7 @@ def get_place(query: dict) -> str:
         else:
             return url
 
-    if query:
+    if query != {}:
         if query['places'] == 'arena':
             return get_image(places['arena'])
         elif query['places'] == 'sigma':
