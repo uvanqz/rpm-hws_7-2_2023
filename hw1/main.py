@@ -22,7 +22,7 @@ if len(data) <= 10:
     new_len = len(data)
 print('Викторина на тему: Россия')
 print("Для выхода нажмите 'q'")
-rans, i = 0, 0    
+rans, i = 0, 0
 while i < new_len:
     row = data[i]
     id = row['id']
