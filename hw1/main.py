@@ -16,10 +16,14 @@ connection = connect(**credentials, cursor_factory=RealDictCursor)
 cursor = connection.cursor()
 cursor.execute('SELECT * from equipment')
 data = cursor.fetchall()
+if len(data) > 10:
+    new_len = 10
+if len(data) <= 10:
+    new_len = len(data)
 print('Викторина на тему: Россия')
 print("Для выхода нажмите 'q'")
-rans, i = 0, 0
-while i < len(data):
+rans, i = 0, 0    
+while i < new_len:
     row = data[i]
     id = row['id']
     question = row['question']
@@ -48,7 +52,7 @@ while i < len(data):
     else:
         print(f'Неверно! Правильный ответ: {right_answer}\n')
     i += 1
-print(f'Ваш результат: {rans} из {len(data)}')
+print(f'Ваш результат: {rans} из {new_len}')
 
 cursor.close()
 connection.close()
