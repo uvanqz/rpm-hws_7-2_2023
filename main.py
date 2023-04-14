@@ -1,4 +1,4 @@
-from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from psycopg2 import connect
 from dotenv import load_dotenv
 from os import getenv
@@ -24,7 +24,7 @@ def get_data(query: dict, table: str) -> dict:
     print(events)
     return {
         'number': len(events),
-        'rendered_events': list_to_paragraphs([[str(attr) for attr in event] for event in events])
+        'rendered_events': list_to_paragraphs([[str(attr) for attr in event] for event in events]),
     }
 
 
@@ -33,9 +33,9 @@ def query_request(request: str, query: dict):
         parts = []
         for key, value in query.items():
             if isinstance(value, int):
-                parts.append(f"{key}={value}")
+                parts.append("{key}={value}")
             else:
-                parts.append(f"{key}='{value}'")
+                parts.append("{key}='{value}'")
         return '{0} WHERE {1}'.format(request, ' AND '.join(parts))
     return request
 
@@ -52,7 +52,7 @@ def get_place(query: dict) -> str:
         response = get(url, timeout=(5, 5))
         if response.status_code != OK:
             return BAD_REQUEST
-        else:
+        elif response.status_code == OK:
             return url
 
     if query:
@@ -71,7 +71,7 @@ def change_db(request: str):
     try:
         db_cursor.execute(request)
     except Exception as error:
-        print(f'change_db error: {error}')
+        print('change_db error: {error}')
         return False
     else:
         db_connection.commit()
@@ -83,7 +83,7 @@ def get_id(table: str, query: dict):
     try:
         db_cursor.execute(query_request(SELECT_ID.format(table=table), query))
     except Exception as error:
-        print(f'db get_id error: {error}')
+        print('db get_id error: {error}')
         return 0
     else:
         return db_cursor.fetchone()[0]
@@ -97,7 +97,7 @@ def db_insert(table: str, data: dict) -> bool:
     keys = list(data.keys())
     values = [data[key] for key in keys]
     attrs = ', '.join([str(key) for key in keys])
-    values_str = ', '.join([f"{value}" if is_int(value) else f"'{value}'" for value in values])
+    values_str = ', '.join(["{value}" if is_int(value) else "'{value}'" for value in values])
     return change_db(INSERT.format(table=table, attrs=attrs, values=values_str))
 
 
@@ -106,7 +106,7 @@ def db_delete(table: str, data: dict):
 
 
 def db_update(table: str, query: dict, data: dict):
-    data = ', '.join([f"{key}={val}" if is_int(val) else f"{key}='{val}'" for key, val in data.items()])
+    data = ', '.join(["{key}={val}" if is_int(val) else "{key}='{val}'" for key, val in data.items()])
     return change_db(query_request(UPDATE.format(table=table, data=data), query))
 
 
@@ -124,7 +124,7 @@ class CustomHandler(BaseHTTPRequestHandler):
     def get_query(self, possible_attrs: dict = {}) -> tuple:
         result = {}
         index = self.path.find('?')
-        if index != -1 and index != len(self.path) - 1:
+        if index not in {'-1', 'len(self.path) - 1'}:
             query_parts = self.path[index + 1:].split('&')
             query = [part.split('=') for part in query_parts]
             for key, value in query:
@@ -136,7 +136,7 @@ class CustomHandler(BaseHTTPRequestHandler):
             if possible_attrs:
                 for attr in result.keys():
                     if attr not in possible_attrs:
-                        raise Exception(f'unknown attribute <{attr}>')
+                        raise Exception('unknown attribute <{attr}>')
         return result
 
     def get_template(self) -> str:
