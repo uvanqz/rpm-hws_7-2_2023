@@ -36,6 +36,7 @@ def error_page(error: str) -> str:
     with open(ERROR_PAGE, 'r') as template:
         return template.read().format(error=error)
 
+
 def get_place(query: dict) -> str:
     def g_image(url):
         response = get(url, timeout=(5, 5))
