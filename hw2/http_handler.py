@@ -1,12 +1,8 @@
-import socket
 from http.server import BaseHTTPRequestHandler
-
-import requests
-
 from db_utils import DbHandler
 from config import *
 from json import loads
-from views import events, main_page, error_page, maps
+from views import events, main_page, maps
 from dotenv import load_dotenv
 from os import getenv
 

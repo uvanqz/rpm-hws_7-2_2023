@@ -1,9 +1,5 @@
-import smtplib
-from urllib.parse import unquote
-import db_utils
 from config import *
 from requests import get
-
 
 
 def list_to_view(iterable: list):
