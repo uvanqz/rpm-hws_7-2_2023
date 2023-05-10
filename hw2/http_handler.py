@@ -86,8 +86,6 @@ class CustomHandler(BaseHTTPRequestHandler):
             return BAD_REQUEST, "Invalid path"
         return NOT_FOUND, 'Content not found'
 
-    # добавление
-
     def post(self, content: dict = None):
         if self.path.startswith(EVENTS):
             content = content if content else self.read_content_json()
@@ -96,15 +94,13 @@ class CustomHandler(BaseHTTPRequestHandler):
             for attr in content.keys():
                 if attr not in EVENTS_ALL_ATTRS:
                     return NOT_IMPLEMENTED, f'events do not have attribute: {attr}'
-            if all([key in content for key in EVENTS_REQ_ATTRS]):
+            if all(key in content for key in EVENTS_REQ_ATTRS):
                 id_event = DbHandler.insert(content)
                 status = CREATED if id_event else BAD_REQUEST
                 message = f'http://{HOST}:{PORT}{EVENTS}/?id={id_event}' if status == CREATED else "Insert error"
                 return status, message
             return BAD_REQUEST, f'Required keys to add: {EVENTS_REQ_ATTRS}'
         return BAD_REQUEST, "Invalid path"
-
-    # Изменение
 
     def put(self):
         if self.path.startswith(EVENTS):

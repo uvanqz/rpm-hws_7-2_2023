@@ -36,7 +36,7 @@ NOT_IMPLEMENTED = 501
 # db requests
 RETURN_ID = " returning id"
 SELECTOR = 'SELECT id, event, date_s, description, location FROM events'
-GET_TOKEN = 'SELECT token FROM token WHERE username=\'{username}\''
+GET_TOKEN = "SELECT token FROM token WHERE username=\'{username}\'"
 INSERT = 'INSERT INTO {table} ({keys}) VALUES ({values}) RETURNING id'
 UPDATE = 'UPDATE {table} SET {request}'
 DELETE = 'DELETE FROM {table} '
@@ -49,8 +49,8 @@ CODING = 'KOI8-R'
 # maps things
 URL = "https://static-maps.yandex.ru/1.x/?l=map&ll={}&size=650,450&z={}&l=map&pt=37.620070,55.753630,pmwtm1~37.64,55.76363,pmwtm99"
 places = {
-        "lyceum": URL.format("39.98161706,43.40416754", "17"),
-        "sigma": URL.format("39.98015207,43.40067092", "17"),
-        "arena": URL.format("39.95343842,43.40890090", "17"),
-        "karaganda": URL.format("73.08149641,49.81310069", "11")
-    }
+    "lyceum": URL.format("39.98161706,43.40416754", "17"),
+    "sigma": URL.format("39.98015207,43.40067092", "17"),
+    "arena": URL.format("39.95343842,43.40890090", "17"),
+    "karaganda": URL.format("73.08149641,49.81310069", "11")
+}
