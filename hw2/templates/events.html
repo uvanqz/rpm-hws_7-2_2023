@@ -4,6 +4,16 @@
         <title>
             Events
         </title>
+        <style>
+            table {{
+               border-collapse: collapse;
+               border: 1px solid grey;
+               text-align: center;
+            }}
+            th, td {{
+               border: 1px solid grey;
+            }}
+        </style>
     </head>
     <body>
         <br>
@@ -37,8 +47,17 @@
         <h4>
             Events count: {number}
         </h4>
-        <h4> Full events list: </h4>
+        <table>
+            <caption>Full events list: </caption>
+            <tr>
+                <td>id</td>
+                <td>event</td>
+                <td>date_s</td>
+                <td>description</td>
+                <td>location</td>
+            </tr>
             {rendered_events}
+        </table>
         <br>
         <a href="/maps">Places</a>
         <br>
