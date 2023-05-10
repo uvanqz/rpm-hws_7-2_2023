@@ -40,7 +40,7 @@ class DbHandler:
         return False
 
     @staticmethod
-    def compose_insert(insert_data: dict):
+    def compose_insert(cls, insert_data: dict):
         keys = tuple(insert_data.keys())
         values = [insert_data[key] for key in keys]
         attrs = ', '.join(keys)
@@ -83,7 +83,7 @@ class DbHandler:
         return bool(cls.db_cursor.rowcount)
 
     @staticmethod
-    def query_request(request: str, req_conds: dict):
+    def query_request(cls, request: str, req_conds: dict):
         conditions = []
         for attr, value in req_conds.items():
             if attr == "created":
