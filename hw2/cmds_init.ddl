@@ -13,3 +13,9 @@ values ('Chess club', '04.01.2024', 'For chess lovers', 'Lyceum'),
      ('Beading Circle', '04.04.2024', 'Weave Beaded Bracelets', 'Sigma Sirius'),
      ('Cooking together', '04.05.2024', 'Learning to cook pizza', 'Sigma Sirius'),
      ('Basketball', '04.06.2024', 'For basketball lovers', 'Lyceum');
+
+CREATE TABLE IF NOT EXISTS token (
+    username text NOT NULL primary key,
+    token uuid);
+    
+INSERT INTO token (username, token) VALUES ('admin', '73f8c463-ff76-4f95-bba9-5a07284d5059');

@@ -59,7 +59,6 @@ Go to Postman
 Example of data that we send to post:
 {
     "event": "event_1",
-    "date_s": "01.07.2023",
     "description": "description_1",
     "location": "Lyceum"
 }
@@ -74,7 +73,6 @@ Example of data that we send to update:
 
 {
     "event": "event_1",
-    "date_s": "01.07.2023",
     "description": "description_1",
     "location": "Arena"
 }
