@@ -1,5 +1,3 @@
-psql -h 127.0.0.1 -p 38746 -U sirius_2023 -d postgres
-
 CREATE TABLE if not exists events (
     id int generated always as identity primary key,
 	event TEXT,

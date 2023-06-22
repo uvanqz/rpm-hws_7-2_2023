@@ -2,6 +2,16 @@
 
 # Set up the project.
 
+# Do this command to clone my repo
+git clone https://github.com/uvanqz/rpm-hws_7-2_2023
+cd rpm-hws_7-2_2023
+git checkout uvarova
+
+# You need to move folder with name hw2.
+cd hw2
+
+# You need to create a docker container
+
 `docker run  -d 
         --name postgres_db2023 
         -e POSTGRES_USER=sirius_2023 
@@ -13,7 +23,10 @@
 
 docker start postgres_db2023
 
-psql -h 127.0.0.1 -p 38746 -U sirius_2023 -d postgres -f cmds_init
+# Create tables
+
+psql -h 127.0.0.1 -p 38746 -U sirius_2023 -d postgres -f cmnds_init.ddl
+
 # this server needs:
 
 ## postgres database
@@ -31,4 +44,42 @@ PG_PASSWORD=change_me
 PG_DBNAME=postgres`
 
 # run:
-    python3 main.py 
+    python3.X main.py
+
+# And click the link: http://127.0.0.1:8001
+
+# After this command you fill see the main page. You can choose which page to go to.
+
+# You can open Postman and try to do POST/PUT/DELETE requests. 
+
+# 1. POST request
+paste the url http://127.0.0.1:8001/events
+Go to Postman
+
+Example of data that we send to post:
+{
+    "event": "event_1",
+    "date_s": "01.07.2023",
+    "description": "description_1",
+    "location": "Lyceum"
+}
+
+After this command you will see a url with event id. You can press ctrl and click to the link. You will see your event.
+
+# 2. PUT request
+paste the url http://127.0.0.1:8001/events?id= after "=" you must to paste event id, witch you want to update.
+
+Go to Postman
+Example of data that we send to update:
+
+{
+    "event": "event_1",
+    "date_s": "01.07.2023",
+    "description": "description_1",
+    "location": "Arena"
+}
+
+After this command you will see an updated event.
+
+# 3. DELETE request
+paste the url http://127.0.0.1:8001/events?id= after "=" you must to paste event id, witch you want to delete.
