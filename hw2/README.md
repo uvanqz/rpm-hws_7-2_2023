@@ -60,7 +60,8 @@ Example of data that we send to post:
 {
     "event": "event_1",
     "description": "description_1",
-    "location": "Lyceum"
+    "location": "Lyceum",
+    "date_s": "2023-08-09"
 }
 
 After this command you will see a url with event id. You can press ctrl and click to the link. You will see your event.
@@ -74,7 +75,8 @@ Example of data that we send to update:
 {
     "event": "event_1",
     "description": "description_1",
-    "location": "Arena"
+    "location": "Arena",
+    "date_s": "2023-08-09"
 }
 
 After this command you will see an updated event.
