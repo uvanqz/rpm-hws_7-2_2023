@@ -27,6 +27,7 @@ def get_data(query: dict, table: str) -> dict:
         'rendered_events': list_to_paragraphs([[str(attr) for attr in event] for event in events])
     }
 
+
 def is_int(num: any):
     return isinstance(num, int)
 
@@ -117,7 +118,7 @@ def is_valid_token(username: str, token: str) -> bool:
 
 class CustomHandler(BaseHTTPRequestHandler):
 
-    def get_query(self, possible_attrs: dict = {}) -> tuple:
+    def get_query(self, possible_attrs: dict = None) -> tuple:
         result = {}
         index = self.path.find('?')
         if index != -1 and index != len(self.path) - 1:
@@ -141,22 +142,15 @@ class CustomHandler(BaseHTTPRequestHandler):
                 query = self.get_query(EVENTS_ALL_ATTRS)
             except Exception as error:
                 return BAD_REQUEST, str(error)
-            else:
-                return OK, events(get_data(query, EVENTS[1:]))
+
+            return OK, events(get_data(query, EVENTS[1:]))
         elif self.path.startswith(PLACES):
             try:
                 query = self.get_query()
             except Exception as error:
                 return BAD_REQUEST, str(error)
-            else:
-                return OK, places(get_place(query))
-        elif self.path.startswith(PLACES):
-            try:
-                query = self.get_query()
-            except Exception as error:
-                return BAD_REQUEST, str(error)
-            else:
-                return OK, places(get_place(query))
+
+            return OK, places(get_place(query))
         return OK, main_page()
 
     def do_GET(self):

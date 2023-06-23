@@ -18,7 +18,7 @@ INSERT = 'INSERT INTO {table} ({attrs}) VALUES ({values})'
 DELETE = 'DELETE FROM {table}'
 UPDATE = 'UPDATE {table} SET {data}'
 SELECT_ID = 'SELECT id FROM {table}'
-GET_TOKEN = 'SELECT token FROM token WHERE username=\'{username}\''
+GET_TOKEN = "SELECT token FROM token WHERE username=\'{username}\'"
 EVENTS_ALL_ATTRS = ['id', 'event', 'date_s', 'description', 'location']
 EVENTS_REQ_ATTRS = ['event', 'description', 'location']
 POST_URL = f'http://{HOST}:{PORT}{EVENTS}?id='
