@@ -6,15 +6,15 @@ def list_to_paragraphs(data: list):
 
 
 def events(events_data: dict) -> str:
-    with open(EVENTS_TEMPLATE, 'r') as f:
-        return f.read().format(**events_data)
+    with open(EVENTS_TEMPLATE, 'r') as fun:
+        return fun.read().format(**events_data)
 
 
 def main_page() -> str:
-    with open(MAIN_TEMPLATE, 'r') as f:
-        return f.read()
+    with open(MAIN_TEMPLATE, 'r') as fun:
+        return fun.read()
 
 
 def places(place: str) -> str:
-    with open(PLACES_TEMPLATE, 'r') as f:
-        return f.read().format(place)
+    with open(PLACES_TEMPLATE, 'r') as fun:
+        return fun.read().format(place)

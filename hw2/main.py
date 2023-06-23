@@ -1,11 +1,13 @@
-from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-from psycopg2 import connect
-from dotenv import load_dotenv
 from os import getenv
-from config import *
-from json import loads
-from views import events, main_page, list_to_paragraphs, places
+
+from dotenv import load_dotenv
+from psycopg2 import connect
 from requests import get
+
+from config import *
+from views import events, main_page, list_to_paragraphs, places
+from json import loads
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 load_dotenv()
 
@@ -18,6 +20,7 @@ YANDEX_KEY = getenv('YANDEX_KEY')
 
 
 def get_data(query: dict, table: str) -> dict:
+
     global db_cursor
     db_cursor.execute(query_request(SELECT.format(table=table), query))
     events = db_cursor.fetchall()
