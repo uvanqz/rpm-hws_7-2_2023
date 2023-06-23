@@ -231,14 +231,14 @@ class CustomHandler(BaseHTTPRequestHandler):
             code, msg = FORBIDDEN, 'Authorization was failed!'
         self.respond(code, msg)
 
-    def do_post(self):
+    def do_POST(self):
 
         self.process()
 
-    def do_delete(self):
+    def do_DELETE(self):
         self.process()
 
-    def do_put(self):
+    def do_PUT(self):
         self.process()
 
 

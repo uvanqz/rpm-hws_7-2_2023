@@ -1,5 +1,4 @@
 from psycopg2 import connect
-
 from psycopg2.extras import RealDictCursor
 from dotenv import load_dotenv
 from os import getenv
@@ -26,13 +25,13 @@ print("Для выхода нажмите 'q'")
 rans, chislo = 0, 0
 while chislo < new_len:
     row = data[chislo]
-    id = row['id']
+    aidi = row['id']
     question = row['question']
     answer_1 = row['answer_1']
     answer_2 = row['answer_2']
     answer_3 = row['answer_3']
     right_answer = int(row['right_answer'])
-    print('\n'.join((f'Вопрос № {id}',
+    print('\n'.join((f'Вопрос № {aidi}',
                         f'{question}',
                         'Варианты ответа: ',
                         f'{answer_1}',
