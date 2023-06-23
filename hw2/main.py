@@ -3,7 +3,6 @@ from os import getenv
 from dotenv import load_dotenv
 from psycopg2 import connect
 from requests import get
-
 from config import *
 from views import events, main_page, list_to_paragraphs, places
 from json import loads
@@ -24,10 +23,9 @@ def get_data(query: dict, table: str) -> dict:
     global db_cursor
     db_cursor.execute(query_request(SELECT.format(table=table), query))
     events = db_cursor.fetchall()
-    print(events)
     return {
         'number': len(events),
-        'rendered_events': list_to_paragraphs([[str(attr) for attr in event] for event in events])
+        'rendered_events': list_to_paragraphs([[str(attr) for attr in event] for event in events]),
     }
 
 
@@ -52,7 +50,7 @@ def get_place(query: dict) -> str:
         "lyceum": URL.format("39.98161706,43.40416754", "17"),
         "sigma": URL.format("39.98015207,43.40067092", "17"),
         "arena": URL.format("39.95343842,43.40890090", "17"),
-        "karaganda": URL.format("73.08149641,49.81310069", "11")
+        "karaganda": URL.format("73.08149641,49.81310069", "11"),
     }
 
     def g_image(url):
@@ -233,14 +231,14 @@ class CustomHandler(BaseHTTPRequestHandler):
             code, msg = FORBIDDEN, 'Authorization was failed!'
         self.respond(code, msg)
 
-    def do_POST(self):
+    def do_post(self):
 
         self.process()
 
-    def do_DELETE(self):
+    def do_delete(self):
         self.process()
 
-    def do_PUT(self):
+    def do_put(self):
         self.process()
 
 
