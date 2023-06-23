@@ -1,3 +1,4 @@
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from psycopg2 import connect
 from dotenv import load_dotenv
 from os import getenv
@@ -25,7 +26,6 @@ def get_data(query: dict, table: str) -> dict:
         'number': len(events),
         'rendered_events': list_to_paragraphs([[str(attr) for attr in event] for event in events])
     }
-
 
 def is_int(num: any):
     return isinstance(num, int)
